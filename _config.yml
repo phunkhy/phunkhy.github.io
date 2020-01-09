@@ -84,5 +84,4 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
-  - *.puml
   - _puml
