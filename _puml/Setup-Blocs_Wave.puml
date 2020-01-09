@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome false
+'!pragma graphviz_dot jdot
+!pragma horizontalLineBetweenDifferentPackageAllowed
+
+node "Audiobus" {
+    node "Audio" {
+    [Blocs Wave] as bw_in
+    [AUM] as aum_out
+    [AUM] as aum_in
+    [Blocs Wave] as bw_out
+    bw_in --> aum_out
+    aum_in --> bw_out
+    }
+    node "Midi" {
+        [Xequence 2] as xeq
+    }
+}
+
+node "AUM" as aum {
+    [Blocs Wave (AB)] as bw_in_a
+    [Audio HW] as audio1
+    bw_in_a --> audio1
+
+    [Mix bus 1] as mb1
+    [Blocs Wave (AB)] as bw_out_a
+    mb1 --> bw_out_a
+
+    [Synth] as synth
+    [FX] as fx
+    [Send to\nMix Bus 1] as send1
+    [Audio HW] as audio2
+    synth --> fx
+    fx --> send1
+    send1 --> audio2
+
+    xeq -.> synth
+}
+@enduml
